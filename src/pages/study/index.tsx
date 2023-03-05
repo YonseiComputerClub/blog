@@ -1,12 +1,12 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import axios from "axios";
 import { Header } from "components/Header";
-import { PostCard } from "components/PostCard";
+import { StudyCard } from "components/StudyCard";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { ListResponse, Post } from "types/strapi";
+import { Study } from "types/strapi";
 
-export default function Home({
-  posts,
+export default function Studies({
+  studies,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
@@ -20,26 +20,27 @@ export default function Home({
         gap="6"
         direction="column"
       >
-        <Heading as="h1">전체 글 보기</Heading>
-        {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
+        <Heading as="h1">스터디 목록</Heading>
+        {studies.map((study) => (
+          <StudyCard key={study.id} study={study} />
         ))}
       </Flex>
     </>
   );
 }
 
-export const getStaticProps: GetStaticProps<{ posts: Post[] }> = async () => {
-  const { data } = await axios.get<ListResponse<Post>>(
-    `${process.env.NEXT_PUBLIC_API_URL || ""}/api/posts?populate=*`,
+export const getStaticProps: GetStaticProps<{
+  studies: Study[];
+}> = async () => {
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL || ""}/api/studies`,
     {
       headers: {
         Authorization: `Bearer ${process.env.API_TOKEN}`,
       },
     }
   );
-
   return {
-    props: { posts: data.data },
+    props: { studies: data.data },
   };
 };
