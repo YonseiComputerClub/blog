@@ -11,8 +11,6 @@ import {
 import { AsyncSelect } from "chakra-react-select";
 import { Editor } from "components/Editor";
 import { Header } from "components/Header";
-import { ListResponse, Study } from "types/strapi";
-import axios from "axios";
 
 export default function NewPage() {
   return (
@@ -38,16 +36,6 @@ export default function NewPage() {
             <AsyncSelect
               chakraStyles={{
                 container: (provided) => ({ ...provided, width: "100%" }),
-              }}
-              loadOptions={async () => {
-                const { data } = await axios.get<ListResponse<Study>>(
-                  `${process.env.NEXT_PUBLIC_API_URL || ""}/api/studies`,
-                  {
-                    headers: {
-                      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
-                    },
-                  }
-                );
               }}
             />
           </FormControl>
