@@ -30,7 +30,7 @@ export function Header() {
               프로젝트
             </Heading>
           </Link>
-          <Link href={`${process.env.NEXT_PUBLIC_API_URL}/api/keycloak/login`}>
+          <Link href={`${process.env.NEXT_PUBLIC_API_URL}/keycloak/login`}>
             <Heading as="h2" size={["sm", "md"]}>
               로그인
             </Heading>
